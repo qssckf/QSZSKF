@@ -18,7 +18,9 @@
 /* 18 */     if (instance == null) {
 /* 19 */       return false;
 /*    */     }
+			 System.out.println("hello!");
 /* 21 */     return instance.isCacheInited();
+			
 /*    */   }
 /*    */ }
 
