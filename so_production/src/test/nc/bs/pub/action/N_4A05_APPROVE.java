@@ -30,7 +30,8 @@
 /*    */   public Object runComClass(PfParameterVO vo) throws BusinessException {
 /* 31 */     this.m_tmpVo = vo;
 /*    */     
-/*    */ 
+/*    */ 	 System.out.println("Hello Git");
+             
 /* 34 */     setParameter("asc", this);
 /*    */     
 /* 36 */     setParameter("parameterVo", vo);
