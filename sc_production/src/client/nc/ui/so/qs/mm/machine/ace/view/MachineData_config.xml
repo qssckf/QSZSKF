@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="context" class="nc.vo.uif2.LoginContext">
+		<property name="nodeType" value="ORG_NODE" />
+	</bean>
+	
+	<!-- 单据模板加载器 -->
+	<bean id="templateContainer" class="nc.ui.uif2.editor.TemplateContainer" init-method="load">
+		<property name="context" ref="context" />
+		<property name="nodeKeies">
+			<list>
+				<value>car</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="QueryTemplateContainer" class="nc.ui.uif2.editor.QueryTemplateContainer">
+    	<property name="context" ref="context"></property>
+    </bean>
+    
+	
+	<!-- 远程加载合并 -->
+	<bean id="remoteCallCombinatorCaller" class="nc.ui.uif2.editor.UIF2RemoteCallCombinatorCaller">
+		<property name="remoteCallers">
+			<list>
+				<ref bean="templateContainer" />
+				<ref bean="QueryTemplateContainer" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 应用服务类 -->
+	<bean id="service" class="nc.ui.so.xlx.tran.car.service.CarAppModelService">
+	</bean>
+	
+	<!-- 对象转换工厂 -->
+	<bean id="boadatorfactory" class="nc.vo.bd.meta.BDObjectAdpaterFactory">
+	</bean>
+	
+	
+	<!--  管理应用模型-->
+	<bean id="model" class="nc.ui.so.xlx.tran.car.model.CarInfoModel">
+	    <property name="businessObjectAdapterFactory" ref="boadatorfactory"/>
+	    <property name="context" ref="context"/>
+	    <property name="service" ref="service"/>
+	</bean>
+	
+	
+	<!--数据模型管理，负责各种方式的初始化-->
+	<bean id="modelDataManager" class="nc.ui.so.xlx.tran.car.model.CarInfoDataManager">
+	    <property name="model" ref="model"/>
+	    <property name="paginationModel" ref="paginationModel" />
+	    <property name="service" ref="service"/>
+	</bean>
+	
+	
+	<!-- 双击列表行后显示卡片 -->
+	<bean id="mouseClickShowPanelMediator" class="nc.ui.pubapp.uif2app.view.MouseClickShowPanelMediator">
+		<property name="listView" ref="listView" />
+		<property name="showUpComponent" ref="cardView" />
+	</bean>
+	
+	<!-- 界面总装 -->
+	<bean id="container" class="nc.ui.uif2.TangramContainer"
+		init-method="initUI">
+		<property name="model" ref="model" />
+		<property name="tangramLayoutRoot">
+			<bean class="nc.ui.uif2.tangramlayout.node.TBNode">
+				<property name="showMode" value="CardLayout" />
+				<property name="tabs">
+					<list>
+						<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+							<property name="name">
+								<bean class="nc.ui.uif2.I18nFB">
+									<property name="resDir" value="common"></property>
+									<property name="resId" value="UC001-0000107"></property>
+									<property name="defaultValue" value="列表"></property>
+								</bean>
+							</property>
+							<property name="component" ref="listView" />
+						</bean>
+						<bean class="nc.ui.uif2.tangramlayout.node.VSNode">
+							<property name="up">
+								<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+									<property name="component" ref="cardInfoPnl" />
+								</bean>
+							</property>
+							<property name="down">
+								<bean class="nc.ui.uif2.tangramlayout.node.CNode">
+									<property name="name">
+										<bean class="nc.ui.uif2.I18nFB">
+											<property name="resDir" value="common"></property>
+											<property name="resId" value="UC001-0000106"></property>
+											<property name="defaultValue" value="卡片"></property>
+										</bean>
+									</property>
+									<property name="component" ref="cardView" />
+								</bean>
+							</property>
+							<property name="dividerLocation" value="30f" />
+						</bean>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="listView" class="nc.ui.pubapp.uif2app.view.ShowUpableBillListView" init-method="initUI">
+		<property name="model" ref="model"/>
+	    <property name="nodekey" value="driver"/>
+	    <property name="pos" value="head"/>
+	    <property name="north" ref="listInfoPnl"></property>
+		<property name="south" ref="paginationBar" />
+	    <property name="templateContainer" ref="templateContainer"/>
+	</bean>
+	
+	<bean id="listInfoPnl" class="nc.ui.uif2.tangramlayout.CardLayoutToolbarPanel">
+		<property name="model" ref="model" />
+	</bean>
+	
+	<bean id="paginationBar" class="nc.ui.uif2.components.pagination.PaginationBar" init-method="registeCallbak">
+		<property name="paginationModel" ref="paginationModel" />
+		<property name="context" ref="context" />
+	</bean>
+	
+
+	
+	<!-- 列表界面分页model -->
+	<bean id="paginationModel" class="nc.ui.uif2.components.pagination.PaginationModel" init-method="init" />
+	
+	<bean id="cardView" class="nc.ui.so.xlx.tran.car.view.CarView" init-method="initUI">
+	    <property name="model" ref="model"/>
+	    <property name="nodekey" value="car"/>
+	    <property name="componentValueManager">
+			<bean class="nc.ui.uif2.editor.value.BillCardPanelMetaDataValueAdapter" />
+		</property>
+	    <property name="templateContainer" ref="templateContainer"/>
+	    <property name="closingListener" ref="ClosingListener"/>    
+	</bean>
+	
+	<bean id="cardInfoPnl" class="nc.ui.pubapp.uif2app.tangramlayout.UECardLayoutToolbarPanel">
+		<property name="actions">
+	    	<list>
+				<ref bean="firstlineAction" />
+				<ref bean="prelineAction" />
+				<ref bean="nextlineAction" />
+				<ref bean="lastLineAction" />
+	    	</list>
+	    </property>
+		<property name="titleAction">
+			<bean id="returnaction" class="nc.ui.pubapp.uif2app.actions.UEReturnAction">
+				<property name="goComponent" ref="listView" />
+				<property name="saveAction" ref="saveAction" />
+				<property name="model" ref="model" />
+			</bean>
+		</property>
+		<property name="model" ref="model" />
+	</bean>
+	
+	<!-- 显示列表的拦截器 -->
+	<bean id="showListInterceptor"
+		class="nc.ui.pubapp.uif2app.actions.interceptor.ShowUpComponentInterceptor">
+		<property name="showUpComponent" ref="listView" />
+	</bean>
+	
+	<!-- 显示卡片的拦截器 -->
+	<bean id="showCardInterceptor"
+		class="nc.ui.so.xlx.tran.car.actions.interceptor.CarCardShowUpComponentInterceptor">
+		<property name="showUpComponent" ref="cardView" />
+	</bean>
+	
+	<!-- 卡片界面和列表界面的按钮组 -->
+	<bean id="toftpanelActionContributors" class="nc.ui.uif2.actions.ActionContributors">
+		<property name="contributors">
+			<list>
+				<ref bean="actionsOfList" />
+				<ref bean="actionsOfCard" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="actionsOfList" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="listView" />
+		<property name="model" ref="model" />
+		<property name="actions">
+			<list>
+				<ref bean="addAction" />
+				<ref bean="editAction" />
+				<ref bean="deleteAction" />
+				<ref bean="separatorAction" />
+				<ref bean="queryAction" />
+				<ref bean="refreshAction" />
+				<ref bean="separatorAction" />
+				<ref bean="list_enableGroupAction" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 卡片界面的按钮组 -->
+	<bean id="actionsOfCard" class="nc.ui.uif2.actions.StandAloneToftPanelActionContainer">
+		<constructor-arg ref="cardView" />
+		<property name="model" ref="model" />
+		<!-- 此处配置的Action浏览态始终可见 -->
+		<property name="actions">
+			<list>
+				<ref bean="addAction" />
+				<ref bean="editAction" />
+				<ref bean="deleteAction" />
+				<ref bean="separatorAction" />
+				<ref bean="queryAction" />
+				<ref bean="cardRefreshAction" />
+				<ref bean="separatorAction" />
+				<ref bean="list_enableGroupAction" />
+			</list>
+		</property>
+		<!-- 此处配置的Action编辑态始终可见 -->
+		<property name="editActions">
+			<list>
+				<ref bean="saveAction" />
+				<ref bean="saveAddAction" />
+				<ref bean="cancelAction" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="firstlineAction" class="nc.ui.uif2.actions.FirstLineAction">
+		<property name="model" ref="model"></property>
+	</bean>
+	
+	<bean id="prelineAction" class="nc.ui.uif2.actions.PreLineAction">
+		<property name="model" ref="model"></property>
+	</bean>
+	
+	<bean id="nextlineAction" class="nc.ui.uif2.actions.NextLineAction">
+		<property name="model" ref="model"></property>
+	</bean>
+	
+	<bean id="lastLineAction" class="nc.ui.uif2.actions.LastLineAction">
+		<property name="model" ref="model"></property>
+	</bean>
+	
+	<!-- 按钮间隔 -->
+	<bean id="separatorAction" class="nc.funcnode.ui.action.SeparatorAction" />
+	
+	<bean id="addAction" class="nc.ui.pubapp.uif2app.actions.AddAction">
+		<property name="model" ref="model" />
+		<property name="interceptor" ref="showCardInterceptor" />
+	</bean>
+	
+	<!-- 修改 action-->
+	<bean id="editAction" class="nc.ui.pubapp.uif2app.actions.EditAction">
+		<property name="model" ref="model" />
+		<property name="interceptor" ref="showCardInterceptor" />
+	</bean>
+	
+	<!-- 删除action -->
+	<bean id="deleteAction" class="nc.ui.so.xlx.tran.car.actions.CarDeleteAction">
+		<property name="model" ref="model" />
+	</bean>
+	
+	
+	<!-- 保存action -->
+	<bean id="saveAction" class="nc.ui.pubapp.uif2app.actions.SaveAction">
+		<property name="model" ref="model" />
+		<property name="editor" ref="cardView" />
+		<property name="validationService" ref="validateService" />
+	</bean>
+	
+	<!-- 保存组合校验 -->
+	<bean id="validateService" class="nc.ui.pubapp.uif2app.validation.CompositeValidation">
+		<property name="validators">
+			<list>
+				<bean class="nc.ui.pubapp.uif2app.validation.TemplateNotNullValidation">
+					<property name="billForm" ref="cardView" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 保存新增action -->
+	<bean id="saveAddAction" class="nc.ui.uif2.actions.SaveAddAction">
+		<property name="model" ref="model" />
+		<property name="editor" ref="cardView" />
+		<property name="addAction" ref="addAction" />
+	</bean>
+		
+	<!-- 列表下启用/停用按钮 -->
+	<bean id="list_enableGroupAction" class="nc.funcnode.ui.action.GroupAction">
+	    <property name="actions">
+	        <list>
+	        	<ref bean="list_unenableAction" />
+	            <ref bean="list_enableAction"/>
+	            <ref bean="list_disableAction"/>
+	        </list>
+	    </property>
+	</bean>
+	
+	<bean id="list_unenableAction" class="nc.ui.so.xlx.tran.car.actions.CarBatchUnEnableAction">
+	    <property name="model" ref="model"/>
+	</bean>
+	
+	
+	<bean id="list_enableAction" class="nc.ui.so.xlx.tran.car.actions.CarBatchEnableAction">
+	    <property name="model" ref="model"/>
+	</bean>
+	
+	<bean id="list_disableAction" class="nc.ui.so.xlx.tran.car.actions.CarBatchDisableAction">
+	    <property name="model" ref="model"/>
+	</bean>
+	
+	
+	<bean id="queryAction" class="nc.ui.uif2.actions.QueryAction">
+		<property name="model" ref="model"></property>
+	    <property name="dataManager" ref="modelDataManager"></property>
+	    <property name="queryDelegator" ref="queryDelegator"></property>
+	</bean>
+	
+	<bean id="queryDelegator" class="nc.ui.so.xlx.tran.car.actions.CarQueryDelegator">
+		<property name="context" ref="context"></property>
+		<property name="templateContainer" ref="QueryTemplateContainer"></property>		
+	</bean>
+	
+
+	
+	
+	<!-- 取消action -->
+	<bean id="cancelAction" class="nc.ui.pubapp.uif2app.actions.CancelAction">
+		<property name="model" ref="model" />
+	</bean>
+	
+	<!-- 卡片下刷新（单条数据） -->
+	<bean id="cardRefreshAction" class="nc.ui.so.xlx.tran.car.actions.CarInfoCardRefreshAction">
+		<property name="model" ref="model" />
+	</bean>
+	
+	<!-- 列表下刷新 -->
+	<bean id="refreshAction" class="nc.ui.uif2.actions.RefreshAction">
+		<property name="dataManager" ref="modelDataManager" />
+		<property name="model" ref="model" />
+	</bean>
+
+	<！--关闭监听-->
+	<bean id="ClosingListener" class="nc.ui.uif2.FunNodeClosingHandler">
+		<property name="model" ref="model" />
+		<property name="saveaction" ref="saveAction" />
+		<property name="cancelaction" ref="cancelAction" />
+	</bean>
+	
+	<!-- 事件处理 -->
+	<bean id="eventMediator" class="nc.ui.pubapp.uif2app.model.AppEventHandlerMediator">
+		<property name="model" ref="model" />
+		<property name="handlerGroup">
+			<list>			
+                <!-- 表头字段编辑后事件 -->
+				<bean class="nc.ui.pubapp.uif2app.event.EventHandlerGroup">
+					<property name="event" value="nc.ui.pubapp.uif2app.event.card.CardHeadTailAfterEditEvent" />
+					<property name="handler">
+						<bean class="nc.ui.so.xlx.tran.car.handler.CarCardHeadAfterEditEvent" >
+							<constructor-arg ref="cardView" />
+							<constructor-arg ref="context" />
+						</bean>
+					</property>
+				</bean>
+				
+				    <!-- 组织编辑事件-->
+				<bean class="nc.ui.pubapp.uif2app.event.EventHandlerGroup">
+					<property name="event" value="nc.ui.pubapp.uif2app.event.OrgChangedEvent" />
+					<property name="handler">
+						<bean class="nc.ui.so.xlx.tran.car.handler.CarOrgEditHander">
+							<constructor-arg ref="cardView" />
+							<constructor-arg ref="context" />
+						</bean>
+					</property>
+				</bean>
+				
+				    <!-- 编辑前事件-->
+				<bean class="nc.ui.pubapp.uif2app.event.EventHandlerGroup">
+					<property name="event" value="nc.ui.pubapp.uif2app.event.card.CardHeadTailBeforeEditEvent" />
+					<property name="handler">
+						<bean class="nc.ui.so.xlx.tran.car.handler.CarCardHeadBeforeEditEvent">
+							<constructor-arg ref="cardView" />
+							<constructor-arg ref="context" />
+						</bean>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+
+</beans>
