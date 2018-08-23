@@ -20,5 +20,57 @@
 	<classpathentry kind="con" path="nc.uap.mde.library.container/Module_Private_Library"/>
 	<classpathentry kind="con" path="nc.uap.mde.library.container/Module_Lang_Library"/>
 	<classpathentry kind="con" path="nc.uap.mde.library.container/Generated_EJB"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_account.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_address.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_ambase.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_ambdpub.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_assign.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_assistant.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_balatype.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_bankacc.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_batchupdate.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_bdbase.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_bom.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_brand.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_busi.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_cashflow.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_channeltype.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_cmbasedoc.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_ctbasedoc.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_currinfo.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_customer.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_customersupplier.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_datatransfer.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_fibd.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_fidi.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_framework.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_hrformula.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_hrtaholiday.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_hrtashift.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_hrutils.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_icbasedoc.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_inoutbusiclass.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_material.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_measdoc.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_mmbdpub.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_notetype.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_payterm.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_planstrategy.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_pmbase.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_prodline.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_pub.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_qcbasedoc.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_rack.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_routing.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_scmbdpub.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_stordoc.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_supplier.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_taxitemstaxrate.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_team.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_transporttype.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_vermatch.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_vouchertype.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_workcalendar.jar"/>
+	<classpathentry kind="lib" path="D:/code/NC633GOLD20180407/modules/uapbd/META-INF/lib/uapbd_workcenter.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
